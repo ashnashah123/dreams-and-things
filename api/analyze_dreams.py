@@ -5,7 +5,6 @@ from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
-
 DREAM_TITLES = ['REVOLUTIONS', 'HACK_BEAN_TATTOOS']
 
 DREAMS = {
@@ -30,6 +29,13 @@ def clean_stop_words_from_dreams():
     # print("filtered sentences: ", filtered_sentences[0])
     return filtered_sentences
 
+def get_word_frequency(dreams):
+    for sent in clean_stop_words_from_dreams():
+        freq = nltk.FreqDist(sent)
+        for key,val in freq.items():
+            print(str(key),':', str(val))
+        freq.plot(20, cumulative=False)
+
 def analyze_sentiment():
     pass
 
@@ -41,3 +47,6 @@ wordcloud = WordCloud().generate(DREAMS['REVOLUTIONS'])
 plt.imshow(wordcloud)
 plt.axis("off")
 plt.show()
+
+if __name__ == "__main__":
+    get_word_frequency(clean_stop_words_from_dreams)
